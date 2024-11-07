@@ -1,1 +1,2 @@
-Under construction!
+# Introduction
+This repository aims to provide necessary resources & information for `Mice2MeetU` device, a device for controlling the social interaction and measuring its impacts on metabolic patterns in mice.
