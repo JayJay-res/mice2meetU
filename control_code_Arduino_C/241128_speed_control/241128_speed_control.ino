@@ -1,8 +1,14 @@
 #include <Servo.h>
 
-// Initialize servo objects for tilt and door control
+// Initialise objects for tilt and door control servos
 Servo servo_tilt, servo_door;
 
+
+
+//////////////////////////////////////////////////////
+// Parameters that needs to be configured.
+// User must assign appropriate values.
+//////////////////////////////////////////////////////
 // Define pin connections for tilt and door controls
 int PIN_BNC_TILT = 3;               // Binary control pin for tilt
 int PIN_OVERRIDE_TILT = 4;          // Override switch pin for tilt
@@ -15,9 +21,15 @@ int PIN_SERVO_DOOR = 12;            // Servo motor control pin for door
 int PIN_POT_DOOR = A7;              // Analog potentiometer pin for door speed
 
 // Define tilt and door positions
-int POS_TILT_LOW = 80, POS_TILT_HIGH = 140;    // Tilt range: low and high positions
+int POS_TILT_LOW = 110, POS_TILT_HIGH = 150;    // Tilt range: low and high positions
 int POS_DOOR_OPEN = 150, POS_DOOR_CLOSE = 30;  // Door range: open and close positions
 
+
+
+//////////////////////////////////////////////////////
+// Global variables to hold certain values.
+// No need to assign any values.
+//////////////////////////////////////////////////////
 // Define current position and state variables for tilt and door
 int current_pos_tilt, current_pos_door;        // Tracks the current position of tilt and door
 int current_state_tilt, current_state_door;    // Tracks the current state of tilt and door (high or low for tilt; open or close for door)
@@ -28,9 +40,10 @@ int bnc_door_in, override_door_in, pot_door_spd_raw, servo_door_spd;  // Door co
 
 
 
+
 void setup()
 {
-  // Set pin modes for tilt and door input pins
+  // Pin mode settings for tilt and door input pins
   pinMode(PIN_BNC_TILT, INPUT);
   pinMode(PIN_OVERRIDE_TILT, INPUT_PULLUP);
   pinMode(PIN_POT_TILT, INPUT);
@@ -68,6 +81,8 @@ void loop()
   tiltRoutine();
   doorRoutine();
 }
+
+
 
 // Routine to manage tilt servo movement
 void tiltRoutine()
@@ -123,13 +138,15 @@ void tiltStateTest()
 {
   if(current_pos_tilt == POS_TILT_HIGH)
   {
-    current_state_tilt = 0; // Set state to high if at high position
+    current_state_tilt = 0; // Set state to high (0) if at high position
   }
   else if(current_pos_tilt == POS_TILT_LOW)
   {
-    current_state_tilt = 1; // Set state to low if at low position
+    current_state_tilt = 1; // Set state to low (1) if at low position
   }
 }
+
+
 
 // Routine to manage door servo movement
 void doorRoutine()
@@ -185,16 +202,23 @@ void doorStateTest()
 {
   if(current_pos_door == POS_DOOR_CLOSE)
   {
-    current_state_door = 0; // Set state to closed if at close position
+    current_state_door = 0; // Set state to closed (0) if at close position
   }
   else if(current_pos_door == POS_DOOR_OPEN)
   {
-    current_state_door = 1; // Set state to open if at open position
+    current_state_door = 1; // Set state to open (1) if at open position
   }
 }
 
+
+
+//////////////////////////////////////////////////////
+// Debugging functions.
+// Not required under ordinary operation.
+//////////////////////////////////////////////////////
 // Debugging function to read digital pin value
-void tempDebugD1(int pin_num) {
+void debugD(int pin_num)
+{
   int debug_val_D1 = digitalRead(pin_num);
   Serial.print("Digital@");
   Serial.print(pin_num);
@@ -204,7 +228,8 @@ void tempDebugD1(int pin_num) {
 }
 
 // Debugging function to read analog pin value
-void tempDebugA1(int pin_num) {
+void debugA(int pin_num)
+{
   int debug_val_A1 = analogRead(pin_num);
   Serial.print("Analog@");
   Serial.print(pin_num);
